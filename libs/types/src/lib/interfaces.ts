@@ -15,3 +15,7 @@ export interface ITransaction {
   // user: IUser;
   file?: string;
 }
+export interface ChartData {
+  date: Date;
+  amount: number;
+}
