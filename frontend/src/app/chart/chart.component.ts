@@ -35,7 +35,7 @@ export class ChartComponent implements OnInit {
     );
     const canvas: any = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
-
+    //TODO: global variable for chart manipulation
     new Chart(ctx, {
       type: 'line',
       data: {
