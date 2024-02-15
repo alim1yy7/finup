@@ -14,6 +14,11 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [
@@ -38,6 +43,9 @@
       "linter": "eslint",
       "style": "scss",
       "unitTestRunner": "none"
+    },
+    "@nx/angular:component": {
+      "style": "scss"
     }
   }
 }
