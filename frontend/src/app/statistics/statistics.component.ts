@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'finup-statistics',
@@ -8,4 +8,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss',
 })
-export class StatisticsComponent {}
+/**
+ * Container for one Block of information e.g. a chart or a table
+ */
+export class StatisticsComponent {
+  @Input() title!: string;
+}
