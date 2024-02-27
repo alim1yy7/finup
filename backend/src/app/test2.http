@@ -1,12 +1,3 @@
 
-POST http://localhost:3000/api/transaction/create HTTP/1.1
+GET http://localhost:3000/api/transaction/range/2024-02-12/2024-03-29/ HTTP/1.1
 content-type: application/json
-
-{
-    "amount": 133,
-    "file": "test file",
-    "name": "test fuer nicht existenten user",
-
-    "category": "bevarage",
-    "user": "1"
-}

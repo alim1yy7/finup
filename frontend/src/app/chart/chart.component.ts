@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartData } from '@finup/types';
 
 import { ApiService } from '../shared/api.service';
+import { MathService } from '../shared/math.service';
 
 @Component({
   selector: 'finup-chart',
@@ -16,12 +17,14 @@ import { ApiService } from '../shared/api.service';
 export class ChartComponent implements OnInit {
   chartRawData!: ChartData[];
   chart: any;
-  constructor(private apiSvc: ApiService) {}
+  constructor(private apiSvc: ApiService, private mathSvc: MathService) {}
   ngOnInit(): void {
     this.apiSvc.getAllChartData().subscribe((data: any) => {
       this.chartRawData = data;
       console.log(this.chartRawData);
       this.createChart();
+      // console.log(this.getMaxVal());
+      console.log(this.getAverage());
     });
     Chart.register(...registerables);
   }
@@ -36,6 +39,7 @@ export class ChartComponent implements OnInit {
     const canvas: any = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
     //TODO: global variable for chart manipulation
+
     new Chart(ctx, {
       type: 'line',
       data: {
@@ -54,11 +58,32 @@ export class ChartComponent implements OnInit {
       options: {
         scales: {
           y: {
-            beginAtZero: true,
-            max: 600,
+            max: this.getMaxVal() + this.getMaxVal() * 0.1,
           },
         },
       },
     });
+  }
+  getAverage(): number {
+    return this.mathSvc.getAverage(
+      this.chartRawData.map((el) => {
+        return el.amount;
+      })
+    );
+  }
+
+  getMaxVal(): number {
+    return this.mathSvc.getMax(
+      this.chartRawData.map((el) => {
+        return el.amount;
+      })
+    );
+  }
+  getMinVal(): number {
+    return this.mathSvc.getMin(
+      this.chartRawData.map((el) => {
+        return el.amount;
+      })
+    );
   }
 }

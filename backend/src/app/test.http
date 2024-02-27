@@ -1,9 +1,22 @@
-POST http://localhost:3000/api/user/create HTTP/1.1
+POST http://localhost:3000/api/transaction/create HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "max zwei",
-    "lastName": "Maxus",
-    "mail": "max-maxus@zweiteruser.de",
-    "password": "123456"
+   "amount": 495,
+
+
+  "name": "beer",
+
+
+
+
+
+  "category": "beverages",
+
+
+"user": 1,
+"file": "test"
+
+
+
 }
