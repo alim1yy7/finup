@@ -5,6 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CategoryController } from './category/category.controller';
+import { Category } from './category/category.entity';
+import { CategoryModule } from './category/category.module';
+import { CategoryService } from './category/category.service';
 import { TransactionController } from './transaction/transaction.controller';
 import { TransactionModule } from './transaction/transaction.module';
 import { TransactionService } from './transaction/transaction.service';
@@ -22,14 +26,20 @@ import { UserService } from './user/user.service';
       username: 'root',
       password: '',
       database: 'finup',
-      entities: [User, Transaction],
+      entities: [User, Transaction, Category],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UserModule,
     TransactionModule,
+    CategoryModule,
   ],
-  controllers: [AppController, UserController, TransactionController],
-  providers: [AppService, UserService, TransactionService],
+  controllers: [
+    AppController,
+    UserController,
+    TransactionController,
+    CategoryController,
+  ],
+  providers: [AppService, UserService, TransactionService, CategoryService],
 })
 export class AppModule {}
