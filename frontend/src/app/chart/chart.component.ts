@@ -1,7 +1,7 @@
 import { Chart, registerables } from 'chart.js';
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartData } from '@finup/types';
 
 import { ApiService } from '../shared/api.service';
@@ -15,8 +15,9 @@ import { MathService } from '../shared/math.service';
   styleUrl: './chart.component.scss',
 })
 export class ChartComponent implements OnInit {
+  @Input() chartTitle = 'default';
   chartRawData!: ChartData[];
-  chart: any;
+  chart!: Chart;
   constructor(private apiSvc: ApiService, private mathSvc: MathService) {}
   ngOnInit(): void {
     this.apiSvc.getAllChartData().subscribe((data: any) => {
@@ -36,12 +37,13 @@ export class ChartComponent implements OnInit {
     const amount = this.chartRawData.map(
       (chartRawData: ChartData) => chartRawData.amount
     );
-    const canvas: any = document.getElementById('chart');
+    const canvas: any = document.getElementById(this.chartTitle);
     const ctx = canvas.getContext('2d');
     //TODO: global variable for chart manipulation
 
-    new Chart(ctx, {
+    this.chart = new Chart(ctx, {
       type: 'line',
+
       data: {
         labels: dates,
         datasets: [
@@ -50,12 +52,13 @@ export class ChartComponent implements OnInit {
             data: amount,
             fill: false,
             borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
-            tension: 0.1,
+            borderWidth: 2,
+            tension: 0.05,
           },
         ],
       },
       options: {
+        responsive: true,
         scales: {
           y: {
             max: this.getMaxVal() + this.getMaxVal() * 0.1,

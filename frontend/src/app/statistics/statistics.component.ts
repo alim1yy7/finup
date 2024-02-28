@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+
+
 @Component({
   selector: 'finup-statistics',
   standalone: true,
@@ -12,5 +14,5 @@ import { Component, Input } from '@angular/core';
  * Container for one block of information e.g. a chart or a table
  */
 export class StatisticsComponent {
-  @Input() title!: string;
+  @Input() title = 'Hello World';
 }
