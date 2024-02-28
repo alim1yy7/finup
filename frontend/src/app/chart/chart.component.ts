@@ -58,6 +58,15 @@ export class ChartComponent implements OnInit {
         ],
       },
       options: {
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                family: 'Nunito',
+              },
+            },
+          },
+        },
         responsive: true,
         scales: {
           y: {
