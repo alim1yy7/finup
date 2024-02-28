@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './statistics.component.scss',
 })
 /**
- * Container for one Block of information e.g. a chart or a table
+ * Container for one block of information e.g. a chart or a table
  */
 export class StatisticsComponent {
   @Input() title!: string;
