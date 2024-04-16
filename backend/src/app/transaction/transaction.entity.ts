@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Category } from '../category/category.entity';
 import { User } from '../user/user.entity';
 
 @Entity()
 export class Transaction {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
@@ -17,13 +17,11 @@ export class Transaction {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 
-  @OneToMany(() => Category, (category) => category.transaction, {
-    eager: true,
-  })
-  categorys: Category[];
-
   @ManyToOne(() => User, (user) => user.transactions)
   user: User;
+
+  @ManyToOne(() => Category, (category) => category.transactions)
+  category: Category;
 
   @Column()
   file?: string;

@@ -1,18 +1,13 @@
 <div class="column">
   <div class="row">
-    <finup-statistics title="Oben links">
-      <finup-chart chartTitle="first"></finup-chart>
-    </finup-statistics>
-    <finup-statistics title="Oben rechts">
-      <finup-chart chartTitle="second"></finup-chart>
-    </finup-statistics>
-  </div>
-  <div class="row">
-    <finup-statistics title="unten links">
-      <finup-chart chartTitle="third"></finup-chart>
-    </finup-statistics>
-    <finup-statistics title="unten rechts">
-      <finup-chart chartTitle="fourth"></finup-chart>
+    <finup-statistics
+      *ngFor="let category of categories"
+      [title]="category.label"
+    >
+      <finup-chart
+        [chartTitle]="category.label"
+        [chartRawData]="category.transactions"
+      ></finup-chart>
     </finup-statistics>
   </div>
 </div>

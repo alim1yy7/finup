@@ -37,4 +37,10 @@ export class TransactionService {
       date: Between(first, last),
     });
   }
+
+  getByCategoryId(catId: string) {
+    return this.transactionRepo.findBy({
+      category: { id: catId },
+    });
+  }
 }

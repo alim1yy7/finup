@@ -6,7 +6,7 @@ import { CategoryService } from './category.service';
 @Controller('category')
 export class CategoryController {
   constructor(private categorySvc: CategoryService) {}
-  @Get('all')
+  @Get('')
   async findAll() {
     return this.categorySvc.findAll();
   }

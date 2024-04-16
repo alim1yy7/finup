@@ -19,3 +19,8 @@ export interface ChartData {
   date: Date;
   amount: number;
 }
+export interface ICategory {
+  id: string;
+  label: string;
+  transactions: ITransaction[];
+}

@@ -6,7 +6,7 @@ import { TransactionService } from './transaction.service';
 @Controller('transaction')
 export class TransactionController {
   constructor(private transactionSvc: TransactionService) {}
-  @Get('all')
+  @Get()
   async findAll() {
     return this.transactionSvc.findAll();
   }
@@ -31,5 +31,10 @@ export class TransactionController {
     @Param('last') last: Date
   ) {
     return this.transactionSvc.getInRange(userID, first, last);
+  }
+
+  @Get('category/:catId')
+  async getByCategoryId(@Param('catId') catID: string) {
+    return this.transactionSvc.getByCategoryId(catID);
   }
 }

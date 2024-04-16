@@ -1,7 +1,7 @@
+import { ChartData } from 'chart.js';
+
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-
-
 
 @Component({
   selector: 'finup-statistics',
@@ -15,4 +15,5 @@ import { Component, Input } from '@angular/core';
  */
 export class StatisticsComponent {
   @Input() title = 'Hello World';
+  @Input() dataToDisplay!: ChartData;
 }

@@ -1,8 +1,9 @@
-import { Chart, registerables } from 'chart.js';
+import { registerables } from 'chart.js';
+import Chart from 'chart.js/auto';
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartData } from '@finup/types';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { ITransaction } from '@finup/types';
 
 import { ApiService } from '../shared/api.service';
 import { MathService } from '../shared/math.service';
@@ -14,34 +15,30 @@ import { MathService } from '../shared/math.service';
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss',
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements AfterViewInit {
   @Input() chartTitle = 'default';
-  chartRawData!: ChartData[];
-  chart!: Chart;
+  @Input() chartRawData!: ITransaction[];
+  chart!: any;
   constructor(private apiSvc: ApiService, private mathSvc: MathService) {}
-  ngOnInit(): void {
-    this.apiSvc.getAllChartData().subscribe((data: any) => {
-      this.chartRawData = data;
-      console.log(this.chartRawData);
-      this.createChart();
-      // console.log(this.getMaxVal());
-      console.log(this.getAverage());
-    });
+  ngAfterViewInit(): void {
+    console.log(this.chartRawData);
+    this.createChart();
+
     Chart.register(...registerables);
   }
 
   createChart() {
-    const dates = this.chartRawData.map((chartRawData: ChartData) =>
+    const dates = this.chartRawData.map((chartRawData: ITransaction) =>
       new Date(chartRawData.date).toLocaleTimeString('de-DE')
     );
     const amount = this.chartRawData.map(
-      (chartRawData: ChartData) => chartRawData.amount
+      (chartRawData: ITransaction) => chartRawData.amount
     );
     const canvas: any = document.getElementById(this.chartTitle);
     const ctx = canvas.getContext('2d');
     //TODO: global variable for chart manipulation
 
-    this.chart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
 
       data: {
@@ -59,6 +56,15 @@ export class ChartComponent implements OnInit {
       },
       options: {
         plugins: {
+          tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                const label = this.chartRawData[tooltipItem.dataIndex].name;
+                const value = tooltipItem.formattedValue;
+                return `${label}: ${value}`;
+              },
+            },
+          },
           legend: {
             labels: {
               font: {
@@ -69,9 +75,7 @@ export class ChartComponent implements OnInit {
         },
         responsive: true,
         scales: {
-          y: {
-            max: this.getMaxVal() + this.getMaxVal() * 0.1,
-          },
+          y: {},
         },
       },
     });

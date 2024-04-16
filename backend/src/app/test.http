@@ -1,22 +1,12 @@
-POST http://localhost:3000/api/transaction/create HTTP/1.1
+
+POST http://localhost:3000/api/transaction/create/ HTTP/1.1
 content-type: application/json
 
 {
-   "amount": 495,
-
-
-  "name": "beer",
-
-
-
-
-
-  "category": "beverages",
-
-
-"user": 1,
-"file": "test"
-
-
+  "amount": 90,
+  "name": "Speciality Coffee",
+  "userId": 1,
+  "categoryId": 2,
+  "file": "rechnung.pdf"
 
 }
